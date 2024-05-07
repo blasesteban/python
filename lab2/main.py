@@ -1,3 +1,5 @@
+import random
+
 from lab1.main import greatest_common_divisor
 
 
@@ -269,6 +271,300 @@ def stars_between_nums(num1, num2):
     print('')
 
 
+def sum_and_product():
+    sum = 0
+    product = 1
+    while True:
+        i = int(input())
+        if i == 0:
+            break
+        sum += i
+        product *= i
+    print('sum:', sum, 'product:', product)
+
+
+def tabulators():
+    while True:
+        row = input()
+        if row == '':
+            break
+        i = 0
+        isBackslash = False
+        for c in row:
+            if isBackslash:
+                isBackslash = False
+                if c == 't':
+                    print('*' * (8 - i), end='')
+                    i = 0
+                    continue
+                else:
+                    print('\\', end='')
+                    i += 1
+                    if i == 8:
+                        i = 0
+            if c == '\\':
+                isBackslash = True
+                continue
+            print(c, end='')
+            i += 1
+            if i == 8:
+                i = 0
+        if isBackslash:
+            print('\\', end='')
+        print()
+
+
+def tabulators2(tab_width=8):
+    while True:
+        row = input()
+        if row == '':
+            break
+        i = 0
+        buffer = ''
+        for c in row:
+            buffer += c
+            if buffer == '\\':
+                continue
+            elif buffer == '\\t':
+                print('*' * (tab_width - i), end='')
+                i = 0
+                buffer = ''
+            else:
+                print(buffer, end='')
+                i = (i + len(buffer)) % tab_width
+                buffer = ''
+        print(buffer)
+
+
+def is_square_number(num):
+    i = 1
+    while True:
+        square = i * i
+        if num < square:
+            return False
+        if num == square:
+            return True
+        i += 1
+
+
+def perfect_number(maxnum):
+    i = 1
+    while i <= maxnum:
+        j = 1
+        sum_of_divisors = 0
+        while j < i:
+            if i % j == 0:
+                sum_of_divisors += j
+            j += 1
+        if sum_of_divisors == i:
+            print(sum_of_divisors, end=', ')
+        i += 1
+    print()
+
+
+def natural_logarithm(precision=20):
+    e = 0
+    for i in range(precision):
+        factorial = 1
+        for j in range(1, i + 1):
+            factorial *= j
+        e += 1 / factorial
+        i += 1
+    print(e)
+
+
+def half_of_pi(precision=10000):
+    half_pi = 1
+    for i in range(2, precision, 2):
+        half_pi *= i * i / ((i - 1) * (i + 1))
+    print(half_pi * 2)
+
+
+def leibniz_series(precision=10000):
+    quarter_pi = 0
+    sign = 1
+    for i in range(1, precision, 2):
+        quarter_pi += sign / i
+        sign *= -1
+    print(quarter_pi * 4)
+
+
+def sum_without_max():
+    quantity = int(input('give the quantity of the numbers: '))
+    sum = int(input())
+    max = sum
+    for i in range(1, quantity, 1):
+        num = int(input())
+        sum += num
+        if num > max:
+            max = num
+    sum -= max
+    print(sum)
+
+
+def print_random_list(quantity=10):
+    random_list = []
+    for i in range(0, quantity, 1):
+        random_list.append(random.randint(0, 100))
+    print('The list: ', random_list[0], end='')
+    for i in range(1, len(random_list)):
+        print(', ', i, end='')
+    print()
+
+
+def product_of_listnumbers(quantity=10):
+    random_list = []
+    for i in range(0, quantity, 1):
+        random_list.append(random.randint(0, 100))
+    print(random_list)
+    is_product = False
+    number = int(input('The product: '))
+    for i in range(len(random_list)):
+        for j in range(i, len(random_list)):
+            if random_list[i] * random_list[j] == number:
+                is_product = True
+    if is_product:
+        print('the given number is the product of two elements in the list')
+    else:
+        print('the given number is NOT the product of two elements in the list')
+
+
+def three_divisors():
+    nums = 0
+    i = 0
+    while nums < 5:
+        divisors = 0
+        for j in range(1, i + 1):
+            if i % j == 0:
+                divisors += 1
+        if divisors == 3:
+            print(i)
+            nums += 1
+        i += 1
+
+
+def is_prime(number):
+    prime = False
+    divisors = 0
+    for i in range(1, number + 1):
+        if number % i == 0:
+            divisors += 1
+    if divisors == 2:
+        prime = True
+    return prime
+
+
+def pair_of_primes_no_greater():
+    maxnum = int(input('give me a number: '))
+    for i in range(1, maxnum):
+        for j in range(i + 1, maxnum + 1):
+            if is_prime(i + j):
+                print(i, ', ', j, sep="")
+
+
+def strictly_monotonic():
+    random_list = []
+    for i in range(0, 10, 1):
+        random_list.append(random.randint(0, 100))
+    print(random_list)
+    inc = True
+    dec = True
+    first_num = random_list[0]
+    second_num = random_list[1]
+    if first_num == second_num:
+        print('the series is not strictly increasing and neither strictly decreasing')
+    elif first_num < second_num:
+        dec = False
+        for i in range(1, len(random_list)):
+            if not random_list[i - 1] < random_list[i]:
+                inc = False
+                break
+        if inc:
+            print('the series is strictly increasing')
+    else:
+        inc = False
+        for i in range(1, len(random_list)):
+            if not random_list[i - 1] > random_list[i]:
+                dec = False
+                break
+        if dec:
+            print('the series is strictly decreasing')
+    if not inc and not dec:
+        print('the series is not strictly increasing and neither strictly decreasing')
+
+
+def river():
+    ...
+
+
+def same_items():
+    random_list = []
+    for i in range(0, 100, 1):
+        random_list.append(random.randint(0, 100))
+    print(random_list)
+    for i in range(0, len(random_list)):
+        for j in range(i, len(random_list)):
+            if i != j and random_list[i] == random_list[j]:
+                print(i, ': ', random_list[i], ' is equal to ', j, ': ', random_list[j], sep='')
+
+
+def different_elements():
+    random_list = []
+    for i in range(0, 10, 1):
+        random_list.append(random.randint(0, 100))
+    print(random_list)
+    different = True
+    for i in range(0, len(random_list)):
+        for j in range(i, len(random_list)):
+            if i != j and random_list[i] == random_list[j]:
+                different = False
+                break
+    if different:
+        print('all the elements are different')
+    else:
+        print('not all the elements are different')
+
+
+def rock_paper_scissors():
+    print('Type \'r\' as Rock, \'p\' as Paper, \'s\' as Scissors or \'e\' as End')
+    e = False
+    moves = ['r', 'p', 's']
+    manual_score = 0
+    automatic_score = 0
+    while not e:
+        manual_move = input('Your move: ').lower()
+        if manual_move == 'e':
+            if manual_score == automatic_score:
+                print('it is a tie')
+            elif manual_score > automatic_score:
+                print('you won, you have got: ', manual_score, ' I have got: ', automatic_score, ' points.', sep='')
+            else:
+                print('you lost, you have got: ', manual_score, ' I have got: ', automatic_score, ' points.', sep='')
+            e = True
+            break
+        elif not moves.__contains__(manual_move):
+            continue
+        else:
+            automatic_move = moves[random.randint(0, 2)]
+            print('My move:', automatic_move)
+            manual_index = moves.index(manual_move)
+            automatic_index = moves.index(automatic_move)
+            if manual_move == automatic_move:
+                print('it is a tie in the round')
+            elif manual_index > automatic_index and manual_index - automatic_index != 2:
+                manual_score += 1
+                print('you won the round')
+            elif automatic_index > manual_index and automatic_index - manual_index != 2:
+                automatic_score += 1
+                print('you lost the round')
+            elif manual_index - automatic_index == 2:
+                automatic_score += 1
+                print('you lost the round')
+            else:
+                manual_score += 1
+                print('you won the round')
+
+
 if __name__ == '__main__':
     ...
     # check_triangle(3, 4, 5)
@@ -298,4 +594,21 @@ if __name__ == '__main__':
     # interval_with_prime_numbers(18, 0)
     # serial_of_sums_of_multiplications(6)
     # euler_number()
-    stars_between_nums(10, 40)
+    # stars_between_nums(10, 40)
+    # sum_and_product()
+    # tabulators2()
+    # print(is_square_number(4))
+    # print(is_square_number(5))
+    # perfect_number(9000)
+    # natural_logarithm()
+    # half_of_pi()
+    # leibniz_series()
+    # sum_without_max()
+    # print_random_list()
+    # product_of_listnumbers()
+    # three_divisors()
+    # pair_of_primes_no_greater()
+    # strictly_monotonic()
+    # same_items()
+    # different_elements()
+    rock_paper_scissors()
